@@ -1,0 +1,153 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block extrahead %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'admin/css/dashboard.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<!-- Chart.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{% endblock %}
+
+{% block content %}
+
+<div id="chargenow-dashboard" class="cn-fullwidth">
+
+    <h1 class="dashboard-title">
+         ChargeNow Admin Dashboard
+    </h1>
+
+    <!-- ===== STATS GRID ===== -->
+    <div class="stats-grid">
+
+        <div class="stat-card">
+            <i class="fa-solid fa-users"></i>
+            <div class="text">
+                <p class="card-label">Total Users</p>
+                <h2 class="card-number">{{ total_users|default:"0" }}</h2>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <i class="fa-solid fa-user-gear"></i>
+            <div class="text">
+                <p class="card-label">Van Operators</p>
+                <h2 class="card-number">{{ total_operators|default:"0" }}</h2>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <i class="fa-solid fa-truck"></i>
+            <div class="text">
+                <p class="card-label">Charging Vans</p>
+                <h2 class="card-number">{{ total_vans|default:"0" }}</h2>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <i class="fa-solid fa-calendar-check"></i>
+            <div class="text">
+                <p class="card-label">Bookings</p>
+                <h2 class="card-number">{{ total_bookings|default:"0" }}</h2>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <i class="fa-solid fa-credit-card"></i>
+            <div class="text">
+                <p class="card-label">Payments</p>
+                <h2 class="card-number">{{ total_payments|default:"0" }}</h2>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <i class="fa-solid fa-message"></i>
+            <div class="text">
+                <p class="card-label">Feedbacks</p>
+                <h2 class="card-number">{{ total_feedbacks|default:"0" }}</h2>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <i class="fa-solid fa-bell"></i>
+            <div class="text">
+                <p class="card-label">Requests</p>
+                <h2 class="card-number">{{ total_requests|default:"0" }}</h2>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <i class="fa-solid fa-car"></i>
+            <div class="text">
+                <p class="card-label">User Vehicles</p>
+                <h2 class="card-number">{{ total_user_vehicles|default:"0" }}</h2>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ===== PIE CHART ===== -->
+    <div class="chart-container" style="margin-top: 40px; width: 500px; max-width: 90%; background:white; padding:20px; border-radius:12px; box-shadow:0 0 15px rgba(0,0,0,0.1);">
+        <canvas id="dashboardPieChart"></canvas>
+    </div>
+
+</div>
+
+<!-- ===== PIE CHART SCRIPT ===== -->
+<script>
+const ctx = document.getElementById('dashboardPieChart').getContext('2d');
+
+const pieData = {
+    labels: ['Users', 'Operators', 'Charging Vans', 'Bookings', 'Payments', 'Feedbacks', 'Requests', 'User Vehicles'],
+    datasets: [{
+        label: 'ChargeNow Stats',
+        data: [
+            {{ total_users|default:"0" }},
+            {{ total_operators|default:"0" }},
+            {{ total_vans|default:"0" }},
+            {{ total_bookings|default:"0" }},
+            {{ total_payments|default:"0" }},
+            {{ total_feedbacks|default:"0" }},
+            {{ total_requests|default:"0" }},
+            {{ total_user_vehicles|default:"0" }}
+        ],
+        backgroundColor: [
+            '#1E90FF', '#FF6384', '#FFCE56', '#4BC0C0',
+            '#FF9F40', '#9966FF', '#FF4444', '#44FF99'
+        ],
+        borderColor: '#ffffff',
+        borderWidth: 2
+    }]
+};
+
+const pieConfig = {
+    type: 'pie',
+    data: pieData,
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'bottom',
+                labels: {
+                    font: {
+                        size: 14
+                    }
+                }
+            },
+            tooltip: {
+                enabled: true,
+                callbacks: {
+                    label: function(context) {
+                        return context.label + ': ' + context.parsed;
+                    }
+                }
+            }
+        }
+    }
+};
+
+new Chart(ctx, pieConfig);
+</script>
+
+{% endblock %}
