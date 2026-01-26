@@ -1,9 +1,9 @@
-/* ===================== DARK MODE BASE ===================== */
+/*DARK MODE BASE */
 body.dark-mode {
     color-scheme: dark;
 }
 
-/* ===================== TABLE FIXES ===================== */
+/*TABLE FIXES*/
 .dark-mode .table {
     color: #e9ecef !important;
 }
@@ -27,7 +27,7 @@ body.dark-mode {
     background-color: rgba(255, 255, 255, 0.08) !important;
 }
 
-/* ===================== FORM INPUTS ===================== */
+/*FORM INPUTS*/
 .dark-mode .form-control {
     background-color: #343a40 !important;
     border-color: #495057 !important;
@@ -40,24 +40,24 @@ body.dark-mode {
     color: #ffffff !important;
 }
 
-/* ===================== CARDS ===================== */
+/*CARDS*/
 .dark-mode .card,
 .dark-mode .admin-card {
     background: linear-gradient(135deg, #1f2933, #111827) !important;
     color: #ffffff !important;
 }
 
-/* ===================== NAVBAR ===================== */
+/*NAVBAR*/
 .dark-mode .navbar-dark {
     background-color: #343a40 !important;
 }
 
-/* ===================== SIDEBAR ===================== */
+/*SIDEBAR*/
 .dark-mode .sidebar-dark-primary {
     background: linear-gradient(180deg, #0f2027, #203a43, #2c5364) !important;
 }
 
-/* ===================== LINKS ===================== */
+/*LINKS*/
 .dark-mode a {
     color: #4da6ff !important;
 }
@@ -66,7 +66,7 @@ body.dark-mode {
     color: #80c1ff !important;
 }
 
-/* ===================== MODALS ===================== */
+/*MODALS*/
 .dark-mode .modal-content {
     background-color: #343a40 !important;
     color: #e9ecef !important;
@@ -77,7 +77,7 @@ body.dark-mode {
     border-color: #495057 !important;
 }
 
-/* ===================== PAGINATION ===================== */
+/*PAGINATION*/
 .dark-mode .pagination .page-link {
     background-color: #343a40 !important;
     border-color: #495057 !important;
@@ -89,15 +89,13 @@ body.dark-mode {
     border-color: #0d6efd !important;
 }
 
-/* ===================== TRANSITION ===================== */
+/*TRANSITION*/
 .dark-mode,
 .dark-mode * {
     transition: background-color 0.25s ease, color 0.25s ease;
 }
 
-/* =====================================================
-   ADD / EDIT PAGE – ACTION BUTTONS
-===================================================== */
+/*ADD / EDIT PAGE – ACTION BUTTONS*/
 
 /* Button container */
 .submit-row.jazzmin-actions {
@@ -139,7 +137,7 @@ body.dark-mode {
     line-height: 52px !important;
 }
 
-/* ===================== MOBILE ===================== */
+/*MOBILE*/
 @media (max-width: 768px) {
     .submit-row.jazzmin-actions .btn {
         width: 100% !important;
@@ -147,9 +145,7 @@ body.dark-mode {
 }
 
 
-/* ===============================
-   GLOBAL DARK TECH THEME
-================================ */
+/*GLOBAL DARK THEME */
 :root {
     --bg-dark: #0b0f19;
     --bg-sidebar: #0f172a;
@@ -162,18 +158,14 @@ body.dark-mode {
     --glass-border: rgba(255, 255, 255, 0.08);
 }
 
-/* ===============================
-   SIDEBAR BACKGROUND
-================================ */
+/*SIDEBAR BACKGROUND*/
 .main-sidebar {
     background: linear-gradient(180deg, #020617, #0b0f19) !important;
     border-right: 1px solid var(--glass-border);
     box-shadow: 4px 0 25px rgba(0, 245, 160, 0.15);
 }
 
-/* ===============================
-   BRAND / LOGO AREA
-================================ */
+/*BRAND / LOGO AREA*/
 .brand-link {
     font-weight: 800 !important;
     background: transparent !important;
@@ -186,9 +178,7 @@ body.dark-mode {
     color: var(--primary) !important;
 }
 
-/* ===============================
-   USER PANEL
-================================ */
+/*USER PANEL*/
 .user-panel {
     border-bottom: 1px solid var(--glass-border);
 }
@@ -198,9 +188,7 @@ body.dark-mode {
     font-weight: 600;
 }
 
-/* ===============================
-   SIDEBAR MENU ITEMS
-================================ */
+/*SIDEBAR MENU ITEMS*/
 .nav-sidebar .nav-item > .nav-link {
     color: var(--text-muted) !important;
     border-radius: 14px;
@@ -217,9 +205,7 @@ body.dark-mode {
     font-size: 1rem;
 }
 
-/* ===============================
-   HOVER EFFECT (TECH GLOW)
-================================ */
+/*HOVER EFFECT (TECH GLOW)*/
 .nav-sidebar .nav-item > .nav-link:hover {
     background: var(--bg-hover);
     color: #020617 !important;
@@ -227,9 +213,7 @@ body.dark-mode {
     transform: translateX(6px);
 }
 
-/* ===============================
-   ACTIVE ITEM
-================================ */
+/*ACTIVE ITEM*/
 .nav-sidebar .nav-item > .nav-link.active {
     background: linear-gradient(135deg, #00f5a0, #00d9f5);
     color: #020617 !important;
@@ -237,9 +221,7 @@ body.dark-mode {
     box-shadow: 0 0 22px rgba(0, 217, 245, 0.8);
 }
 
-/* ===============================
-   SIDEBAR HEADERS
-================================ */
+/*SIDEBAR HEADERS*/
 .nav-header {
     color: var(--secondary) !important;
     text-transform: uppercase;
@@ -249,9 +231,7 @@ body.dark-mode {
     opacity: 0.9;
 }
 
-/* ===============================
-   SCROLLBAR (MODERN)
-================================ */
+/*SCROLLBAR (MODERN)*/
 .main-sidebar::-webkit-scrollbar {
     width: 6px;
 }
@@ -261,16 +241,12 @@ body.dark-mode {
     border-radius: 10px;
 }
 
-/* ===============================
-   COLLAPSED SIDEBAR FIX
-================================ */
+/*COLLAPSED SIDEBAR FIX*/
 .sidebar-collapse .main-sidebar .nav-link span {
     display: none;
 }
 
-/* ===============================
-   SUBMENU (IF ANY)
-================================ */
+/*SUBMENU (IF ANY)*/
 .nav-treeview {
     background: transparent !important;
 }
