@@ -6,7 +6,7 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 
-# ===================== ENV =====================
+# ENV 
 load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,27 +20,22 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
-# ===================== INSTALLED APPS =====================
+# INSTALLED APPS
 INSTALLED_APPS = [
-    # Jazzmin Admin Theme
+ 
     "jazzmin",
-    # Django Default Apps
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-
-    # Third Party
     "rest_framework",
     "corsheaders",
-
-    # Local Apps
     "api",
 ]
 
-# ===================== MIDDLEWARE =====================
+
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
@@ -52,16 +47,16 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-# ===================== URL / WSGI =====================
+
 ROOT_URLCONF = "chargenow.urls"
 WSGI_APPLICATION = "chargenow.wsgi.application"
 
-# ===================== TEMPLATES =====================
-# 👇 VERY IMPORTANT FOR CUSTOM ADMIN LOGIN
+
+# For Custom Admin Login
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],  # ✅ This line important
+        'DIRS': [BASE_DIR / 'templates'],  
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -74,7 +69,7 @@ TEMPLATES = [
     },
 ]
 
-# ===================== DATABASE =====================
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
@@ -82,7 +77,7 @@ DATABASES = {
     }
 }
 
-# ===================== AUTH VALIDATION =====================
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
@@ -98,13 +93,13 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# ===================== INTERNATIONALIZATION =====================
+
 LANGUAGE_CODE = "en-us"
 TIME_ZONE = "Asia/Kolkata"
 USE_I18N = True
 USE_TZ = True
 
-# ===================== STATIC FILES =====================
+
 STATIC_URL = "/static/"
 STATICFILES_DIRS = [
     BASE_DIR / "static",
@@ -113,14 +108,14 @@ LOGOUT_REDIRECT_URL = "/admin/login/"
 LOGIN_REDIRECT_URL = "/admin/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
-# ===================== MEDIA FILES =====================
+
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
-# ===================== DEFAULT PK =====================
+
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# ===================== REST FRAMEWORK =====================
+
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "api.authentication.JWTAuthentication",
@@ -130,7 +125,7 @@ REST_FRAMEWORK = {
     ],
 }
 
-# ===================== CORS =====================
+
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 
@@ -139,7 +134,7 @@ JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY', SECRET_KEY)
 JWT_ALGORITHM = 'HS256'
 JWT_EXPIRATION_HOURS = 24
 
-# ===================== JAZZMIN SETTINGS =====================
+
 JAZZMIN_SETTINGS = {
     "site_title": "ChargeNow Admin",
     "site_header": "ChargeNow Control Panel",

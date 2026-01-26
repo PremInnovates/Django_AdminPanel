@@ -2,7 +2,7 @@ from django.utils import timezone
 from api.models import User, Booking, ChargingVan, Payment, Request, Feedback, UserVehicle, VanOperator
 
 def admin_dashboard_counts(request):
-    # Dashboard ke liye real-time data
+    # real-time data For Dashboard
     if request.path.startswith('/admin/'):
         try:
             # Total counts

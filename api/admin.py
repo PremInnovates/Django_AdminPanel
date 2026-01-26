@@ -11,9 +11,9 @@ from .models import (
     UserVehicle, Request, Booking, Payment, Feedback
 )
 
-# =====================================================
+
 # CUSTOM ADMIN SITE
-# =====================================================
+
 class ChargeNowAdminSite(admin.AdminSite):
     site_header = "ChargeNow Admin"
     site_title = "ChargeNow Admin"
@@ -36,18 +36,18 @@ class ChargeNowAdminSite(admin.AdminSite):
 
 admin_site = ChargeNowAdminSite(name="chargenow_admin")
 
-# =====================================================
+
 # REMOVE DEFAULT DJANGO MODELS
-# =====================================================
+
 for model in [DjangoUser, Group]:
     try:
         admin_site.unregister(model)
     except admin.sites.NotRegistered:
         pass
 
-# =====================================================
+
 # AJAX DELETE VIEW
-# =====================================================
+
 @admin_site.admin_view
 def ajax_delete(request):
     model_name = request.POST.get("model")
@@ -70,9 +70,9 @@ def ajax_delete(request):
 
     return JsonResponse({"success": True})
 
-# =====================================================
+
 # BASE ADMIN -DELETE HEADER FIX HERE 
-# =====================================================
+
 class AjaxDeleteAdmin(admin.ModelAdmin):
 
     class Media:
@@ -94,9 +94,9 @@ class AjaxDeleteAdmin(admin.ModelAdmin):
     def has_add_permission(self, request):
         return False
 
-# =====================================================
+
 # CHARGING VAN FORM
-# =====================================================
+
 class ChargingVanForm(forms.ModelForm):
     class Meta:
         model = ChargingVan
@@ -106,9 +106,9 @@ class ChargingVanForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields["operator"].widget = forms.Select()
 
-# =====================================================
+
 # USER ADMIN
-# =====================================================
+
 class UserAdmin(AjaxDeleteAdmin):
     list_display = (
         "user_id",
@@ -127,9 +127,9 @@ class UserAdmin(AjaxDeleteAdmin):
     def has_change_permission(self, request, obj=None):
         return False
 
-# =====================================================
+
 # VAN OPERATOR ADMIN
-# =====================================================
+
 class VanOperatorAdmin(AjaxDeleteAdmin):
     list_display = (
         "operator_id",
@@ -150,9 +150,9 @@ class VanOperatorAdmin(AjaxDeleteAdmin):
     def has_add_permission(self, request):
         return True
 
-# =====================================================
+
 # CHARGING VAN ADMIN
-# =====================================================
+
 class ChargingVanAdmin(AjaxDeleteAdmin):
     list_display = (
         "van_id",
@@ -175,9 +175,9 @@ class ChargingVanAdmin(AjaxDeleteAdmin):
     def has_add_permission(self, request):
         return True
 
-# =====================================================
+
 # OTHER ADMINS
-# =====================================================
+
 class UserVehicleAdmin(AjaxDeleteAdmin):
     list_display = (
         "vehicle_id",
@@ -265,16 +265,16 @@ class FeedbackAdmin(AjaxDeleteAdmin):
         "delete_action",
     )
 
-# =====================================================
+
 # REGISTER AJAX URL
-# =====================================================
+
 admin_site.get_urls = lambda: [
     path("api/delete/", admin_site.admin_view(ajax_delete)),
 ] + admin.AdminSite.get_urls(admin_site)
 
-# =====================================================
+
 # REGISTER MODELS
-# =====================================================
+
 admin_site.register(User, UserAdmin)
 admin_site.register(VanOperator, VanOperatorAdmin)
 admin_site.register(ChargingVan, ChargingVanAdmin)

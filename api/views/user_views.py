@@ -12,7 +12,7 @@ from ..serializers import (
 )
 from ..permissions import IsUser
 
-# ========== VEHICLE VIEWS ==========
+# VEHICLE VIEWS
 
 class UserVehicleListView(APIView):
     """Get and add user vehicles"""
