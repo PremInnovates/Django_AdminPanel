@@ -38,7 +38,7 @@ class VanOperatorSerializer(serializers.ModelSerializer):
 #             raise serializers.ValidationError("File size must be under 5MB")
 #         return file
 class VanOperatorRegistrationSerializer(serializers.ModelSerializer):
-    operator_license_doc = serializers.FileField()
+    operator_license = serializers.FileField()
 
     def validate_operator_license_doc(self, file):
         allowed_extensions = ['.pdf', '.jpg', '.jpeg', '.png']
@@ -188,11 +188,11 @@ class PaymentSerializer(serializers.ModelSerializer):
             'operator',
             'operator_name',
             'amount',
-            'p_method',
-            'p_status',
-            'payment_time'
+            'payment_method',
+            'payment_status',
+            'created_at'
         ]
-        read_only_fields = ['payment_id', 'payment_time']
+        read_only_fields = ['payment_id', 'created_at']
 
 
 

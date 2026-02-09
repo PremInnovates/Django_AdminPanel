@@ -5,7 +5,7 @@
     min-height: 100vh;
 }
 
-/* DASHBOARD TITLE */
+/* DASHBOARD TITLE*/
 .dashboard-title {
     text-align: center;
     font-size: 26px;
@@ -16,15 +16,15 @@
     border-bottom: 1px solid #1e293b;
 }
 
-/*STATS GRID*/
+/* STATS GRID */
 .stats-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); 
+    grid-template-columns: repeat(3, 1fr); /* 3 per line */
     gap: 22px;
     margin-bottom: 35px;
 }
 
-/*STAT CARD */
+/*STAT CARD*/
 .stat-card {
     background: linear-gradient(145deg, #111827, #020617);
     border-radius: 14px;
@@ -44,7 +44,7 @@
     border-color: #38bdf8;
 }
 
-/*CARD ICON*/
+/* CARD ICON */
 .stat-card i {
     font-size: 42px;
     color: #38bdf8;
@@ -52,7 +52,7 @@
     text-align: center;
 }
 
-/*CARD TEXT*/
+/*CARD TEXT */
 .stat-card .text {
     display: flex;
     flex-direction: column;
@@ -74,41 +74,9 @@
     letter-spacing: 0.5px;
 }
 
-/*CHARTS GRID*/
-.charts-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 22px;
-}
 
-/*CHART BOX*/
-.chart-box {
-    background: linear-gradient(145deg, #020617, #020617);
-    border-radius: 14px;
-    padding: 22px;
-    border: 1px solid #1e293b;
-    height: 400px;
-    display: flex;
-    flex-direction: column;
-}
 
-.chart-title {
-    text-align: center;
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 18px;
-    color: #e5e7eb;
-    border-bottom: 1px solid #1e293b;
-    padding-bottom: 10px;
-}
-
-/*CHART CANVAS*/
-.chart-box canvas {
-    width: 100% !important;
-    flex-grow: 1;
-}
-
-/*RESPONSIVE*/
+/*  RESPONSIVE*/
 @media (max-width: 1200px) {
     .stats-grid {
         grid-template-columns: repeat(2, 1fr);

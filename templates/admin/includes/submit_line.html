@@ -10,7 +10,7 @@
 }
 
 .custom-submit-row .btn {
-    min-width: 180px;  /*Big button */
+    min-width: 180px;  /* Big button */
     font-size: 1.1rem;
     padding: 12px 20px;
     border-radius: 8px;
@@ -30,25 +30,25 @@
 
     {% if show_save %}
         <button type="submit" class="btn btn-success btn-lg">
-            💾 Save
+             Save
         </button>
     {% endif %}
 
     {% if show_save_and_add_another %}
         <button type="submit" name="_addanother" class="btn btn-info btn-lg">
-            ➕ Save & Add Another
+             Save & Add Another
         </button>
     {% endif %}
 
     {% if show_save_and_continue %}
         <button type="submit" name="_continue" class="btn btn-primary btn-lg">
-            ✏️ Save & Continue
+             Save & Continue
         </button>
     {% endif %}
 
     {% if show_cancel %}
         <a href="{% url opts|admin_urlname:'changelist' %}" class="btn btn-danger btn-lg cancel-btn">
-            ❌ Cancel
+             Cancel
         </a>
     {% endif %}
 

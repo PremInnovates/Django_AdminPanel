@@ -5,6 +5,7 @@ from django.http import JsonResponse
 from django.contrib.auth.models import Group, User as DjangoUser
 from django import forms
 from django.db import models
+from django.http import HttpResponseForbidden
 
 from .models import (
     User, VanOperator, ChargingVan,
@@ -47,7 +48,6 @@ for model in [DjangoUser, Group]:
 
 
 # AJAX DELETE VIEW
-
 @admin_site.admin_view
 def ajax_delete(request):
     model_name = request.POST.get("model")
@@ -55,8 +55,8 @@ def ajax_delete(request):
 
     model_map = {
         "user": User,
-        "operator": VanOperator,
-        "van": ChargingVan,
+        "vanoperator": VanOperator,
+        "chargingvan": ChargingVan,
         "uservehicle": UserVehicle,
         "request": Request,
         "booking": Booking,
@@ -74,6 +74,7 @@ def ajax_delete(request):
 # BASE ADMIN -DELETE HEADER FIX HERE 
 
 class AjaxDeleteAdmin(admin.ModelAdmin):
+    actions = None   #  DEFAULT DELETE DROPDOWN REMOVE
 
     class Media:
         js = (
@@ -83,16 +84,19 @@ class AjaxDeleteAdmin(admin.ModelAdmin):
 
     def delete_action(self, obj):
         return format_html(
-            '<a href="#" class="delete-btn" data-model="{}" data-id="{}">'
-            '<i class="fa fa-trash" style="color:red;"></i></a>',
+            '<a href="#" class="delete-btn" data-model="{}" data-id="{}" title="Delete">'
+            '<i class="fas fa-trash text-danger"></i>'
+            '</a>',
             self.model._meta.model_name,
             obj.pk
-        )
+    )
 
-    delete_action.short_description = "Delete"  
+
+    delete_action.short_description = "Delete"
 
     def has_add_permission(self, request):
         return False
+
 
 
 # CHARGING VAN FORM
@@ -107,7 +111,9 @@ class ChargingVanForm(forms.ModelForm):
         self.fields["operator"].widget = forms.Select()
 
 
-# USER ADMIN
+
+
+# USER ADMIN      
 
 class UserAdmin(AjaxDeleteAdmin):
     list_display = (
@@ -115,12 +121,13 @@ class UserAdmin(AjaxDeleteAdmin):
         "user_name",
         "user_email",
         "user_phone",
+        "user_address", 
         "created_at",
         "delete_action",
     )
     list_filter = ("user_email",)
     search_fields = ("user_name",)
-
+    readonly_fields = ("role",)
     def has_add_permission(self, request):
         return True
 
@@ -137,18 +144,45 @@ class VanOperatorAdmin(AjaxDeleteAdmin):
         "operator_email",
         "operator_phone",
         "operator_status",
+        "operator_license", 
         "is_verified",
         "created_at",
         "delete_action",
     )
+    
+    list_filter = ("is_verified", "operator_status")    
+    #  Password is Display as ****
+    formfield_overrides = {
+        models.CharField: {"widget": forms.TextInput(attrs={"size": "50"})},
+    }
 
-    list_editable = ("is_verified",)
-    readonly_fields = ("operator_status",)
-    list_filter = ("is_verified",)
-    search_fields = ("operator_name",)
+    def formfield_for_dbfield(self, db_field, request, **kwargs):
+        formfield = super().formfield_for_dbfield(db_field, request, **kwargs)
 
+        
+        if db_field.name == "operator_password":
+            formfield.widget = forms.PasswordInput(render_value=True)
+            formfield.widget.attrs.update({
+                "autocomplete": "new-password",
+            })
+
+        return formfield
+
+    list_filter = ("is_verified", "operator_status")
+    readonly_fields = ("role","operator_status")
+   
+    search_fields = (
+        "operator_name",
+        "operator_email",
+        "operator_phone",
+        "operator_license",
+    )
     def has_add_permission(self, request):
         return True
+    
+    def history_view(self, request, object_id, extra_context=None):
+        return HttpResponseForbidden("History is disabled")
+    
 
 
 # CHARGING VAN ADMIN
@@ -162,16 +196,17 @@ class ChargingVanAdmin(AjaxDeleteAdmin):
         "created_at",
         "delete_action",
     )
-
+    
     list_editable = ("operator",)
-
+    list_filter = ("operator",)
     formfield_overrides = {
         models.ForeignKey: {"widget": forms.Select},
     }
 
-    search_fields = ("van_number",)
-    list_filter = ("operator",)
-
+    search_fields = (
+        "van_number",
+        "operator__operator_name",
+    )
     def has_add_permission(self, request):
         return True
 
@@ -182,6 +217,7 @@ class UserVehicleAdmin(AjaxDeleteAdmin):
     list_display = (
         "vehicle_id",
         "vehicle_company",
+        "vehicle_name", 
         "vehicle_model",
         "vehicle_number",
         "user",
@@ -190,6 +226,7 @@ class UserVehicleAdmin(AjaxDeleteAdmin):
         
     )
     search_fields = ("vehicle_number",)
+    list_filter = ("vehicle_company",) 
    
 
 class RequestAdmin(AjaxDeleteAdmin):
@@ -198,14 +235,15 @@ class RequestAdmin(AjaxDeleteAdmin):
         "user",
         "operator",
         "vehicle",
-        "request_time",
         "user_latitude",
         "user_longitude",
         "request_status",
+        "created_at", 
         "delete_action",
     )
+    search_fields = ("user__user_name","operator__operator_name",)
     list_filter = ("request_status",)
-
+    
 class BookingAdmin(AjaxDeleteAdmin):
     list_display = (
         "booking_id",
@@ -216,31 +254,21 @@ class BookingAdmin(AjaxDeleteAdmin):
         "delete_action",
     )
     list_filter = ("booking_status",)
-    
+    search_fields = ("operator__operator_name",)
 
-# class PaymentAdmin(AjaxDeleteAdmin):
-#     list_display = (
-#         "payment_id",
-#         "amount",
-#         "p_method",
-#         "payment_time",
-#         "p_status",
-#         "delete_action",
-#     )
-#     list_filter = ("p_method",)
-
-@admin.register(Payment)
-class PaymentAdmin(admin.ModelAdmin):
+class PaymentAdmin(AjaxDeleteAdmin):
     list_display = (
         'payment_id',
         'user',
         'operator',
         'booking',
         'amount',
-        'p_method',
-        'p_status',
-        'payment_time'
+        'payment_method',
+        'payment_status',
+        'created_at',
+        'delete_action', 
     )    
+    list_filter = ("payment_method","payment_status",) 
     def get_user(self, obj):
         return obj.user.user_name
 
@@ -249,11 +277,7 @@ class PaymentAdmin(admin.ModelAdmin):
 
     def get_booking(self, obj):
         return obj.booking.booking_id
-
-
-    
-
-
+    search_fields = ("user__user_name","operator__operator_name",)
 
 class FeedbackAdmin(AjaxDeleteAdmin):
     list_display = (
@@ -262,9 +286,11 @@ class FeedbackAdmin(AjaxDeleteAdmin):
         "operator",
         "rating",
         "comments",
+        "created_at", 
         "delete_action",
     )
-
+    list_filter = ("operator",) 
+    search_fields = ("user__user_name","operator__operator_name",)
 
 # REGISTER AJAX URL
 
@@ -274,7 +300,6 @@ admin_site.get_urls = lambda: [
 
 
 # REGISTER MODELS
-
 admin_site.register(User, UserAdmin)
 admin_site.register(VanOperator, VanOperatorAdmin)
 admin_site.register(ChargingVan, ChargingVanAdmin)

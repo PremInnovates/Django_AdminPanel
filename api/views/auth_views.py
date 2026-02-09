@@ -30,7 +30,7 @@ class LoginView(APIView):
         email = serializer.validated_data['email']
         password = serializer.validated_data['password']
 
-        # 1️⃣ Try USER login
+        # 1️ Try USER login
         try:
             user = User.objects.get(
                 user_email=email,
@@ -58,7 +58,7 @@ class LoginView(APIView):
         except User.DoesNotExist:
             pass
 
-        # 2️⃣ Try OPERATOR login
+        # 2️ Try OPERATOR login
         try:
             operator = VanOperator.objects.get(
                 operator_email=email,
@@ -86,7 +86,7 @@ class LoginView(APIView):
         except VanOperator.DoesNotExist:
             pass
 
-        # 3️⃣ If neither matched
+        # 3️ If neither matched
         return Response(
             {'success': False, 'message': 'Invalid email or password'},
             status=status.HTTP_401_UNAUTHORIZED
@@ -186,7 +186,7 @@ class ForgotPasswordView(APIView):
         new_password = serializer.validated_data['new_password']
         hashed_password = make_password(new_password)
 
-        # 1️⃣ Try USER
+        # 1️ Try USER
         user = User.objects.filter(user_email=email).first()
         if user:
             user.user_password = hashed_password
@@ -196,7 +196,7 @@ class ForgotPasswordView(APIView):
                 'message': 'Password updated successfully'
             })
 
-        # 2️⃣ Try OPERATOR
+        # 2️ Try OPERATOR
         operator = VanOperator.objects.filter(operator_email=email).first()
         if operator:
             operator.operator_password = hashed_password
@@ -206,7 +206,7 @@ class ForgotPasswordView(APIView):
                 'message': 'Password updated successfully'
             })
 
-        # 3️⃣ Email not found
+        # 3️ Email not found
         return Response({
             'success': False,
             'message': 'Email not registered'

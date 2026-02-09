@@ -6,7 +6,7 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 
-# ENV 
+
 load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,9 +20,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
-# INSTALLED APPS
+
 INSTALLED_APPS = [
- 
+   
     "jazzmin",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -34,7 +34,6 @@ INSTALLED_APPS = [
     "corsheaders",
     "api",
 ]
-
 
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
@@ -52,11 +51,11 @@ ROOT_URLCONF = "chargenow.urls"
 WSGI_APPLICATION = "chargenow.wsgi.application"
 
 
-# For Custom Admin Login
+#  IMPORTANT FOR CUSTOM ADMIN LOGIN
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],  
+        'DIRS': [BASE_DIR / 'templates'],  #  This line important
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -129,13 +128,15 @@ REST_FRAMEWORK = {
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 
-# JWT SETTINGS
+
 JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY', SECRET_KEY)
 JWT_ALGORITHM = 'HS256'
 JWT_EXPIRATION_HOURS = 24
 
 
 JAZZMIN_SETTINGS = {
+    "show_user_links": False, 
+    "show_user_profile": False, 
     "site_title": "ChargeNow Admin",
     "site_header": "ChargeNow Control Panel",
     "site_brand": "ChargeNow",
@@ -161,16 +162,3 @@ JAZZMIN_SETTINGS = {
 }
 
 
-# JAZZMIN_SETTINGS = {
-#     "site_title": "ChargeNow Admin",
-#     "site_header": "ChargeNow",
-#     "site_brand": "ChargeNow",
-
-#     "site_logo": "images/logo.png",
-#     "site_icon": "images/logo.png",
-
-#     "welcome_sign": "Welcome to ChargeNow Admin",
-
-#     # 🔴 THIS IS THE KEY
-#     "use_custom_admin_login": True,
-# }

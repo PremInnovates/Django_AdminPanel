@@ -1,1 +1,0 @@
-# ChargeNow Django Settings

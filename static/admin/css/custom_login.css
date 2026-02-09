@@ -5,7 +5,7 @@
     font-family: "Segoe UI", sans-serif;
 }
 
-/* SCREEN BACKGROUND */
+/* ONE COLOR FULL SCREEN BACKGROUND */
 body {
     height: 100vh;
     background: linear-gradient(145deg, #020814, #041a33);
@@ -31,7 +31,7 @@ body {
     color: white;
 }
 
-/*LOGO SIZE*/
+/*LOGO SIZE — PERFECT MEDIUM */
 .brand-logo {
     max-width: 700px;
     width: 100%;
@@ -122,7 +122,7 @@ button:hover {
     box-shadow: 0 0 35px rgba(0,255,200,0.8);
 }
 
-/* LOGOUT PAGE LOGO */
+/* LOGOUT PAGE LOGO (SMALL) */
 .logout-page {
     max-width: 120px;
     margin-bottom: 20px;

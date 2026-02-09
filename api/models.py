@@ -53,7 +53,7 @@ class VanOperator(models.Model):
     operator_email = models.EmailField(max_length=30, unique=True)
     operator_password = models.CharField(max_length=255)
     operator_phone = models.BigIntegerField()
-    operator_license_doc = models.FileField(upload_to='operator_docs/')
+    operator_license = models.FileField(upload_to='operator_docs/')
 
     operator_status = models.IntegerField(
         choices=OperatorStatus.choices,
@@ -82,9 +82,9 @@ class VanOperator(models.Model):
     def __str__(self):
         return self.operator_name
 
-# =========================
+
 # USER VEHICLE MODEL
-# # =========================
+
 # class UserVehicle(models.Model):
 #     vehicle_id = models.AutoField(primary_key=True)
 #     user_id = models.IntegerField()
@@ -185,7 +185,7 @@ class Request(models.Model):
     user_longitude = models.DecimalField(max_digits=9, decimal_places=6)
     request_status = models.IntegerField(choices=REQUEST_STATUS, default=0)
     # 0=pending, 1=accepted, 2=rejected, 3=completed
-    request_time = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         db_table = 'request'
@@ -230,9 +230,8 @@ class Booking(models.Model):
     
 
 
-# =========================
 # PAYMENT MODEL
-# =========================
+
 # class Payment(models.Model):
     
 #     P_METHOD_STATUS = (
@@ -265,13 +264,13 @@ class Booking(models.Model):
 
 class Payment(models.Model):
 
-    P_METHOD_STATUS = (
+    PAYMENT_METHOD_STATUS = (
         (0, 'Cash'),
         (1, 'Card'),
         (2, 'UPI'),
     )
 
-    P_STATUS = (
+    PAYMENT_STATUS = (
         (0, 'Pending'),
         (1, 'Completed')
     )
@@ -298,17 +297,17 @@ class Payment(models.Model):
 
     amount = models.FloatField()
 
-    p_method = models.IntegerField(
+    payment_method = models.IntegerField(
         default=0,
-        choices=P_METHOD_STATUS
+        choices=PAYMENT_METHOD_STATUS
     )
 
-    p_status = models.IntegerField(
+    payment_status = models.IntegerField(
         default=0,
-        choices=P_STATUS
+        choices=PAYMENT_STATUS
     )
 
-    payment_time = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         db_table = 'payment'
