@@ -1,0 +1,19 @@
+{% load i18n %}
+
+<ul class="dropdown-menu dropdown-menu-right">
+    {% if user.is_active %}
+        <li class="dropdown-item-text">
+            <strong>{{ user.get_username }}</strong>
+        </li>
+
+        <li class="dropdown-divider"></li>
+
+        <!--SEE PROFILE REMOVED COMPLETELY -->
+        <li>
+            <a class="dropdown-item" href="{% url 'admin:logout' %}">
+                <i class="fas fa-sign-out-alt"></i>
+                {% trans "Log out" %}
+            </a>
+        </li>
+    {% endif %}
+</ul>

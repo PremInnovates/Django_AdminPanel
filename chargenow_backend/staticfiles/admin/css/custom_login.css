@@ -1,0 +1,120 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
+}
+
+body {
+    height: 100vh;
+    background: radial-gradient(circle at top left, #0a1a2f, #020814);
+}
+
+/* MAIN WRAPPER */
+.login-wrapper {
+    display: flex;
+    height: 100vh;
+}
+
+/* LEFT BRAND */
+.brand {
+    flex: 1;
+    background: linear-gradient(160deg, #04152d, #020814);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 🔥 LOGO SIZE CONTROL */
+.brand-logo {
+    width: 700px;   /* 👈 pehle bahut zyada tha */
+    margin-bottom: 25px;
+    filter: drop-shadow(0 0 25px rgba(0,255,200,0.35));
+}
+
+.brand h1 {
+    font-size: 48px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    background: linear-gradient(90deg, #00ffd5, #7CFF00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.brand p {
+    margin-top: 8px;
+    opacity: 0.75;
+    letter-spacing: 1px;
+}
+
+/* RIGHT LOGIN */
+.login-area {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* LOGIN CARD */
+form {
+    width: 420px;              /* 👈 medium size */
+    background: rgba(5, 15, 30, 0.85);
+    padding: 45px;
+    border-radius: 22px;
+    box-shadow:
+        0 0 30px rgba(0,255,204,0.15),
+        inset 0 0 20px rgba(0,255,204,0.08);
+    backdrop-filter: blur(12px);
+}
+
+form h2 {
+    text-align: center;
+    margin-bottom: 35px;
+    font-size: 28px;
+    letter-spacing: 1px;
+    color: #00ffd5;
+}
+
+/* INPUTS */
+input {
+    width: 100%;
+    padding: 18px;
+    margin-bottom: 22px;
+    border-radius: 14px;
+    border: none;
+    background: #060d18;
+    color: #eaffff;
+    font-size: 15px;
+}
+
+input::placeholder {
+    color: #6fa9a3;
+}
+
+input:focus {
+    outline: none;
+    box-shadow: 0 0 12px rgba(0,255,204,0.6);
+}
+
+/* LOGIN BUTTON */
+button {
+    width: 100%;
+    padding: 16px;
+    border-radius: 16px;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    cursor: pointer;
+    color: #001010;
+    background: linear-gradient(135deg, #00ffd5, #7CFF00);
+    box-shadow: 0 0 20px rgba(0,255,200,0.45);
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 35px rgba(0,255,200,0.8);
+}

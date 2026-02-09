@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logged Out | ChargeNow</title>
+    <link rel="stylesheet" href="{% static 'admin/css/custom_login.css' %}">
+</head>
+
+<body>
+
+    <div class="login-wrapper">
+
+        <!-- LEFT BRAND -->
+        <div class="brand">
+            <img src="{% static 'images/image.png' %}" class=".logout-page">
+            <h1>ChargeNow</h1>
+            <p>Session Ended Securely</p>
+        </div>
+
+        <!-- RIGHT LOGOUT MESSAGE -->
+        <div class="login-area">
+            <div class="logout-box">
+                <h2>You are logged out</h2>
+                <p>Your admin session has been closed safely.</p>
+
+                <a href="{% url 'admin:login' %}" class="logout-btn">
+                    Login Again
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

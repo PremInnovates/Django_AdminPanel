@@ -1,0 +1,434 @@
+/* DARK MODE BASE */
+body.dark-mode {
+    color-scheme: dark;
+}
+
+/*TABLE FIXES */
+.dark-mode .table {
+    color: #e9ecef !important;
+}
+
+.dark-mode .table th {
+    color: #adb5bd !important;
+    background-color: #2d3748 !important;
+    border-color: #495057 !important;
+}
+
+.dark-mode .table td {
+    color: #dee2e6 !important;
+    border-color: #495057 !important;
+}
+
+.dark-mode .table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+.dark-mode .table-hover tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* FORM INPUTS */
+.dark-mode .form-control {
+    background-color: #343a40 !important;
+    border-color: #495057 !important;
+    color: #e9ecef !important;
+}
+
+.dark-mode .form-control:focus {
+    background-color: #3a4147 !important;
+    border-color: #80bdff !important;
+    color: #ffffff !important;
+}
+
+/*  CARDS  */
+.dark-mode .card,
+.dark-mode .admin-card {
+    background: linear-gradient(135deg, #1f2933, #111827) !important;
+    color: #ffffff !important;
+}
+
+/*  NAVBAR  */
+.dark-mode .navbar-dark {
+    background-color: #343a40 !important;
+}
+
+/* SIDEBAR */
+.dark-mode .sidebar-dark-primary {
+    background: linear-gradient(180deg, #0f2027, #203a43, #2c5364) !important;
+}
+
+/*  LINKS  */
+.dark-mode a {
+    color: #4da6ff !important;
+}
+
+.dark-mode a:hover {
+    color: #80c1ff !important;
+}
+
+/*  MODALS */
+.dark-mode .modal-content {
+    background-color: #343a40 !important;
+    color: #e9ecef !important;
+}
+
+.dark-mode .modal-header,
+.dark-mode .modal-footer {
+    border-color: #495057 !important;
+}
+
+/*PAGINATION  */
+.dark-mode .pagination .page-link {
+    background-color: #343a40 !important;
+    border-color: #495057 !important;
+    color: #e9ecef !important;
+}
+
+.dark-mode .pagination .page-item.active .page-link {
+    background-color: #0d6efd !important;
+    border-color: #0d6efd !important;
+}
+
+/* TRANSITION */
+.dark-mode,
+.dark-mode * {
+    transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/*ADD / EDIT PAGE – ACTION BUTTONS*/
+
+/* Button container */
+.submit-row.jazzmin-actions {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 14px !important;
+    margin-top: 20px !important;
+}
+
+/* ONE RULE TO CONTROL ALL BUTTONS (input + a) */
+.submit-row.jazzmin-actions .btn {
+    width: 300px !important;
+    height: 52px !important;
+    min-height: 52px !important;
+    line-height: 52px !important;
+
+    padding: 0 !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+
+    border-radius: 8px !important;
+    box-sizing: border-box !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+/* Cancel link safety */
+.submit-row.jazzmin-actions a.btn {
+    text-decoration: none !important;
+}
+
+/* Remove Jazzmin / Django size overrides */
+.jazzmin-actions .btn-sm,
+.jazzmin-actions .btn-xs {
+    height: 52px !important;
+    line-height: 52px !important;
+}
+
+/*  MOBILE */
+@media (max-width: 768px) {
+    .submit-row.jazzmin-actions .btn {
+        width: 100% !important;
+    }
+}
+
+
+/*THEME*/
+:root {
+    --bg-dark: #0b0f19;
+    --bg-sidebar: #0f172a;
+    --bg-hover: linear-gradient(135deg, #00f5a0, #00d9f5);
+    --primary: #00f5a0;
+    --secondary: #00d9f5;
+    --text-light: #e5e7eb;
+    --text-muted: #9ca3af;
+    --card-bg: rgba(255, 255, 255, 0.04);
+    --glass-border: rgba(255, 255, 255, 0.08);
+}
+
+/*SIDEBAR BACKGROUND*/
+.main-sidebar {
+    background: linear-gradient(180deg, #020617, #0b0f19) !important;
+    border-right: 1px solid var(--glass-border);
+    box-shadow: 4px 0 25px rgba(0, 245, 160, 0.15);
+}
+
+/*BRAND / LOGO AREA */
+.brand-link {
+    font-weight: 800 !important;
+    background: transparent !important;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.brand-text {
+    font-weight: 800 !important;
+    letter-spacing: 1px;
+    color: var(--primary) !important;
+}
+
+/*USER PANEL */
+.user-panel {
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.user-panel .info a {
+    color: var(--text-light) !important;
+    font-weight: 600;
+}
+
+/* SIDEBAR MENU ITEMS */
+.nav-sidebar .nav-item > .nav-link {
+    color: var(--text-muted) !important;
+    border-radius: 14px;
+    margin: 6px 10px;
+    padding: 12px 16px;
+    transition: all 0.35s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* ICON */
+.nav-sidebar .nav-link i {
+    margin-right: 12px;
+    font-size: 1rem;
+}
+
+/* HOVER EFFECT */
+.nav-sidebar .nav-item > .nav-link:hover {
+    background: var(--bg-hover);
+    color: #020617 !important;
+    box-shadow: 0 0 18px rgba(0, 245, 160, 0.6);
+    transform: translateX(6px);
+}
+
+/*ACTIVE ITEM*/
+.nav-sidebar .nav-item > .nav-link.active {
+    background: linear-gradient(135deg, #00f5a0, #00d9f5);
+    color: #020617 !important;
+    font-weight: 700;
+    box-shadow: 0 0 22px rgba(0, 217, 245, 0.8);
+}
+
+/*SIDEBAR HEADERS*/
+.nav-header {
+    color: var(--secondary) !important;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 1.2px;
+    margin: 18px 16px 8px;
+    opacity: 0.9;
+}
+
+/*SCROLLBAR*/
+.main-sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.main-sidebar::-webkit-scrollbar-thumb {
+    background: linear-gradient(#00f5a0, #00d9f5);
+    border-radius: 10px;
+}
+
+/*COLLAPSED SIDEBAR FIX*/
+.sidebar-collapse .main-sidebar .nav-link span {
+    display: none;
+}
+
+/*SUBMENU (IF ANY)*/
+.nav-treeview {
+    background: transparent !important;
+}
+
+.nav-treeview .nav-link {
+    font-size: 0.9rem;
+    margin-left: 14px;
+    opacity: 0.9;
+}
+
+
+/*FILTER + SEARCH SIDE BY SIDE */
+.filter-search-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 15px;
+}
+
+/* FILTER SIDEBAR */
+#changelist-filter {
+    width: 260px;
+    margin: 0;
+}
+
+/* SEARCH BAR SECTION */
+.search-section {
+    flex: 1;
+}
+
+/* SEARCH INPUT STYLE (Image jaisa) */
+.custom-search-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.custom-search-form {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.custom-search-form input[type="text"] {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 8px;
+    border: 1px solid #d0d7de;
+    font-size: 15px;
+}
+
+/* SEARCH BUTTON (BLUE CIRCLE) */
+.search-btn {
+    background: #1f6feb;
+    border: none;
+    color: #fff;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.search-btn i {
+    font-size: 16px;
+}
+
+
+
+
+
+
+
+
+/* ===============================
+   DJANGO ADMIN SEARCH BUTTON FIX
+   =============================== */
+
+/* SEARCH FORM */
+#changelist-search form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* SEARCH INPUT */
+#changelist-search input[type="text"] {
+    border-radius: 22px;
+    padding: 8px 14px;
+}
+
+/* SEARCH BUTTON (BUTTON TAG) */
+#changelist-search button[type="submit"] {
+    font-size: 0;                 /* hide text */
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #2563eb !important;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    box-shadow: 0 6px 18px rgba(37, 99, 235, 0.35);
+    transition: all 0.25s ease;
+    padding: 0;
+}
+
+/* MAGNIFYING GLASS ICON */
+#changelist-search button[type="submit"]::after {
+    content: "\f002";
+    font-family: FontAwesome;
+    font-size: 16px;
+    color: #ffffff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* HOVER EFFECT */
+#changelist-search button[type="submit"]:hover {
+    background: #1e40af !important;
+    transform: scale(1.08);
+}
+
+
+/* SEARCH FORM FULL WIDTH */
+#changelist-search form {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+}
+
+/* SEARCH INPUT — WIDE (50% approx) */
+#changelist-search input[type="text"] {
+    flex: 1;                 /* 🔥 this makes it wide */
+    min-width: 420px;
+    max-width: 50%;
+    border-radius: 22px;
+    padding: 10px 18px;
+    font-size: 15px;
+}
+
+/* KEEP BUTTON SIZE SAME */
+#changelist-search button[type="submit"] {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;          /* button compress na ho */
+}
+
+
+
+/* Jazzmin History button */
+.btn-history,
+a[href$="/history/"] {
+    display: none !important;
+}
+
+/* Hide user panel in sidebar (Jazzmin) */
+.sidebar .user-panel {
+    display: none !important;
+}
+
+
+/* Hide "See profile" in user dropdown (Jazzmin) */
+.dropdown-menu a[href*="profile"] {
+    display: none !important;
+}
+
+
+/* ===== REMOVE "See profile" FROM USER DROPDOWN ===== */
+.dropdown-menu a.dropdown-item[href*="/admin/auth/user/"],
+.dropdown-menu a.dropdown-item:has(i.fa-user),
+.dropdown-menu a.dropdown-item:has(i.fas.fa-user) {
+    display: none !important;
+}
+
+
+/* last option – icon based */
+.dropdown-menu i.fa-user,
+.dropdown-menu i.fas.fa-user {
+    display: none !important;
+}
