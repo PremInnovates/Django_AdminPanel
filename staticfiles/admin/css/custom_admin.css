@@ -432,3 +432,9 @@ a[href$="/history/"] {
 .dropdown-menu i.fas.fa-user {
     display: none !important;
 }
+
+
+/* Hide See Profile option */
+.dropdown-menu a[href*="userprofile"] {
+    display: none !important;
+}

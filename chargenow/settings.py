@@ -142,7 +142,6 @@ JAZZMIN_SETTINGS = {
     "copyright": "ChargeNow © 2026",
     "site_logo": "images/image.png",
     "site_icon": "images/image.png",
-    "show_user_links": False, 
     "icons": {
         "api.User": "fas fa-user",
         "api.VanOperator": "fas fa-id-card",
@@ -159,5 +158,3 @@ JAZZMIN_SETTINGS = {
     "dashboard_url": "admin-dashboard",
     "custom_css": "admin/css/custom_admin.css"
 }
-
-

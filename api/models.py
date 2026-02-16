@@ -131,18 +131,53 @@ class UserVehicle(models.Model):
 # CHARGING VAN MODEL
 # =========================
 
+# class ChargingVan(models.Model):
+#     van_id = models.AutoField(primary_key=True)
+#     van_number = models.CharField(max_length=15,unique=True)
+#     operator = models.ForeignKey(
+#         'VanOperator',  # link to VanOperator model
+#         on_delete=models.SET_NULL,  # keep van even if operator deleted
+#         null=True,
+#         blank=True
+#     )
+#     vanoperator_latitude = models.DecimalField(max_digits=9, decimal_places=6)
+#     vanoperator_longitude = models.DecimalField(max_digits=9, decimal_places=6) 
+#     battery_capacity = models.CharField(max_length=20)
+#     created_at = models.DateTimeField(auto_now_add=True)
+
+#     class Meta:
+#         db_table = 'chargingvan'
+
+#     def __str__(self):
+#         return self.van_number
+
 class ChargingVan(models.Model):
     van_id = models.AutoField(primary_key=True)
-    van_number = models.CharField(max_length=15,unique=True)
+
+    van_number = models.CharField(max_length=15, unique=True)
+
     operator = models.ForeignKey(
-        'VanOperator',  # link to VanOperator model
-        on_delete=models.SET_NULL,  # keep van even if operator deleted
+        'VanOperator',
+        on_delete=models.SET_NULL,
         null=True,
         blank=True
     )
-    vanoperator_latitude = models.DecimalField(max_digits=9, decimal_places=6)
-    vanoperator_longitude = models.DecimalField(max_digits=9, decimal_places=6) 
+    
+    # Default value = 0
+    vanoperator_latitude = models.DecimalField(
+        max_digits=9,
+        decimal_places=6,
+        default=0
+    )
+
+    vanoperator_longitude = models.DecimalField(
+        max_digits=9,
+        decimal_places=6,
+        default=0
+    )
+
     battery_capacity = models.CharField(max_length=20)
+
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -150,6 +185,7 @@ class ChargingVan(models.Model):
 
     def __str__(self):
         return self.van_number
+
 
 # =========================
 # REQUEST MODEL

@@ -12,7 +12,7 @@ from ..serializers import (
     BookingSerializer, PaymentSerializer, FeedbackSerializer
 )
 from ..permissions import IsOperator
-
+from decimal import Decimal
 
 class OperatorProfileView(APIView):
     """Get and update operator profile"""
@@ -95,6 +95,28 @@ class OperatorVanView(APIView):
             {'success': True, 'data': serializer.data},
             status=200
         )
+
+class OperatorVanLocationUpdateView(APIView):
+    permission_classes = [IsOperator]
+
+    def put(self, request):
+        operator_id = request.user['id']
+        lat = request.data.get('latitude')
+        lng = request.data.get('longitude')
+
+        van = ChargingVan.objects.filter(operator_id=operator_id).first()
+
+        if not van:
+            return Response({"success": False, "message": "No Van Assigned"}, status=404)
+
+        # 🔥 Convert to Decimal
+        van.vanoperator_latitude = Decimal(str(lat))
+        van.vanoperator_longitude = Decimal(str(lng))
+        van.save()
+
+        print("UPDATED TO:", van.vanoperator_latitude, van.vanoperator_longitude)
+
+        return Response({"success": True, "message": "Location Updated"})    
 
 # ========== REQUEST VIEWS ==========
 

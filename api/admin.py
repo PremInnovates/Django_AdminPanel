@@ -198,6 +198,7 @@ class ChargingVanAdmin(AjaxDeleteAdmin):
     )
     
     list_editable = ("operator",)
+    exclude = ('vanoperator_latitude', 'vanoperator_longitude')
     list_filter = ("operator",)
     formfield_overrides = {
         models.ForeignKey: {"widget": forms.Select},
@@ -239,24 +240,51 @@ class RequestAdmin(AjaxDeleteAdmin):
         "user_latitude",
         "user_longitude",
         "request_status",
-        "created_at", 
+        "created_at",
         "delete_action",
     )
-    search_fields = ("user__user_name","operator__operator_name",)
+
+    search_fields = (
+        "user__user_name",
+        "operator__operator_name",
+    )
+
     list_filter = ("request_status",)
-    
+
+
 class BookingAdmin(AjaxDeleteAdmin):
+    
+    
     list_display = (
         "booking_id",
+        "get_username",   
         "operator",
-        "request_id",
+        "get_request_id",
         "booking_status",
         "created_at",
         "delete_action",
     )
+
     list_filter = ("booking_status",)
-    search_fields = ("operator__operator_name",)
-    
+
+    search_fields = (
+        "request__user__user_name",
+        "operator__operator_name",
+    )
+
+    def get_username(self, obj):
+        if obj.request and obj.request.user:
+            return obj.request.user.user_name
+        return "-"
+    get_username.short_description = "User"
+
+    def get_request_id(self, obj):
+        return obj.request.request_id
+    get_request_id.short_description = "Request ID"
+
+
+
+
 class PaymentAdmin(AjaxDeleteAdmin):
     list_display = (
         'payment_id',

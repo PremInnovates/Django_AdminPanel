@@ -413,22 +413,16 @@ a[href$="/history/"] {
 }
 
 
-/* Hide "See profile" in user dropdown (Jazzmin) */
-.dropdown-menu a[href*="profile"] {
-    display: none !important;
+/* Hide "See profile" by visible text */
+.dropdown-menu a {
+    font-size: 0 !important;
 }
 
-
-/* ===== REMOVE "See profile" FROM USER DROPDOWN ===== */
-.dropdown-menu a.dropdown-item[href*="/admin/auth/user/"],
-.dropdown-menu a.dropdown-item:has(i.fa-user),
-.dropdown-menu a.dropdown-item:has(i.fas.fa-user) {
-    display: none !important;
+.dropdown-menu a::after {
+    font-size: 14px;
 }
 
-
-/* last option – icon based */
-.dropdown-menu i.fa-user,
-.dropdown-menu i.fas.fa-user {
-    display: none !important;
+.dropdown-menu a[href*="password"],
+.dropdown-menu a[href*="logout"] {
+    font-size: 14px !important;
 }

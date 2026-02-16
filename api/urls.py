@@ -13,7 +13,7 @@ from .views.user_views import (
 )
 from .views.operator_views import (
     OperatorProfileView, OperatorStatusView,
-    OperatorVanView,
+    OperatorVanView,OperatorVanLocationUpdateView,
     OperatorRequestListView, OperatorRequestActionView,
     OperatorChargingView,
     OperatorBookingHistoryView, OperatorPaymentHistoryView, OperatorFeedbackHistoryView
@@ -51,6 +51,7 @@ urlpatterns = [
     path('operator/profile/', OperatorProfileView.as_view(), name='operator-profile'),
     path('operator/status/', OperatorStatusView.as_view(), name='operator-status'),
     path('operator/van/', OperatorVanView.as_view(), name='operator-van'),
+    path('operator/van/update-location/',OperatorVanLocationUpdateView.as_view(), name='operator-van-update-location'),
     # Requests
     path('operator/requests/', OperatorRequestListView.as_view(), name='operator-requests'),
     path('operator/requests/<int:request_id>/', OperatorRequestActionView.as_view(), name='operator-request-action'),
