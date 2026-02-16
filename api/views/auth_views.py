@@ -88,7 +88,7 @@ class LoginView(APIView):
 
         # 3️ If neither matched
         return Response(
-            {'success': False, 'message': 'Invalid email or password'},
+            {'success': False, 'message': 'Invalid Email Or Password'},
             status=status.HTTP_401_UNAUTHORIZED
         )
 
@@ -103,7 +103,7 @@ class UserRegisterView(APIView):
         
         # Check if email already exists
         if User.objects.filter(user_email=serializer.validated_data['user_email']).exists():
-            return Response({'success': False, 'message': 'Email already registered'}, 
+            return Response({'success': False, 'message': 'Email Already Registered'}, 
                           status=status.HTTP_400_BAD_REQUEST)
         
         user = User.objects.create(
@@ -146,7 +146,7 @@ class OperatorRegisterView(APIView):
         
         # Check if email already exists
         if VanOperator.objects.filter(operator_email=serializer.validated_data['operator_email']).exists():
-            return Response({'success': False, 'message': 'Email already registered'}, 
+            return Response({'success': False, 'message': 'Email Already Registered'}, 
                           status=status.HTTP_400_BAD_REQUEST)
         
         operator = VanOperator.objects.create(
@@ -155,7 +155,7 @@ class OperatorRegisterView(APIView):
             # operator_password = serializer.validated_data['operator_password'],
             operator_password=make_password(serializer.validated_data['operator_password']),
             operator_phone=serializer.validated_data['operator_phone'],
-            operator_license_doc=serializer.validated_data.get('operator_license_doc', ''),
+            operator_license=serializer.validated_data.get('operator_license', ''),
             operator_status=0,
             role=2
         )
@@ -193,7 +193,7 @@ class ForgotPasswordView(APIView):
             user.save()
             return Response({
                 'success': True,
-                'message': 'Password updated successfully'
+                'message': 'Password Updated Successfully'
             })
 
         # 2️ Try OPERATOR
@@ -203,11 +203,11 @@ class ForgotPasswordView(APIView):
             operator.save()
             return Response({
                 'success': True,
-                'message': 'Password updated successfully'
+                'message': 'Password Updated Successfully'
             })
 
         # 3️ Email not found
         return Response({
             'success': False,
-            'message': 'Email not registered'
+            'message': 'Email Not Registered'
         }, status=status.HTTP_404_NOT_FOUND)

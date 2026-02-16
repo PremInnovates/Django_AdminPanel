@@ -135,8 +135,6 @@ JWT_EXPIRATION_HOURS = 24
 
 
 JAZZMIN_SETTINGS = {
-    "show_user_links": False, 
-    "show_user_profile": False, 
     "site_title": "ChargeNow Admin",
     "site_header": "ChargeNow Control Panel",
     "site_brand": "ChargeNow",
@@ -144,6 +142,7 @@ JAZZMIN_SETTINGS = {
     "copyright": "ChargeNow © 2026",
     "site_logo": "images/image.png",
     "site_icon": "images/image.png",
+    "show_user_links": False, 
     "icons": {
         "api.User": "fas fa-user",
         "api.VanOperator": "fas fa-id-card",
@@ -154,7 +153,7 @@ JAZZMIN_SETTINGS = {
         "api.Feedback": "fas fa-comment",
         "api.UserVehicle": "fas fa-car",
     },
-    
+    "show_user_profile": False,
     "show_sidebar": True,
     "navigation_expanded": True,
     "dashboard_url": "admin-dashboard",

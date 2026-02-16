@@ -25,7 +25,7 @@ class VanOperatorSerializer(serializers.ModelSerializer):
     class Meta:
         model = VanOperator
         fields = ['operator_id', 'operator_name', 'operator_email', 'operator_phone', 
-                  'operator_license_doc', 'operator_status', 'role','is_verified','created_at']
+                  'operator_license', 'operator_status', 'role','is_verified','created_at']
         read_only_fields = ['operator_id', 'created_at']
 
 
@@ -58,7 +58,7 @@ class VanOperatorRegistrationSerializer(serializers.ModelSerializer):
     class Meta:
         model = VanOperator
         fields = ['operator_name', 'operator_email', 'operator_password', 
-                  'operator_phone', 'operator_license_doc']
+                  'operator_phone', 'operator_license']
 
 class ForgotPasswordSerializer(serializers.Serializer):
     email = serializers.EmailField()
@@ -71,17 +71,42 @@ class ForgotPasswordSerializer(serializers.Serializer):
     #         raise serializers.ValidationError("Passwords do not match")
     #     return attrs
 
+# class UserVehicleSerializer(serializers.ModelSerializer):
+#     """Serializer for User Vehicle model"""
+
+#     user_name = serializers.CharField(source='user.user_name', read_only=True)
+
+
+#     class Meta:
+#         model = UserVehicle
+#         fields = ['vehicle_id', 'user_id','user','user_name', 'vehicle_company', 'vehicle_name', 
+#                   'vehicle_model', 'vehicle_number', 'created_at']
+#         read_only_fields = ['vehicle_id', 'created_at']
+#         extra_kwargs = {
+#             'vehicle_number': {
+#                 'error_messages': {
+#                     'unique': 'This vehicle is already registered'
+#                 }
+#             }
+#         }
+
 class UserVehicleSerializer(serializers.ModelSerializer):
-    """Serializer for User Vehicle model"""
-
     user_name = serializers.CharField(source='user.user_name', read_only=True)
-
 
     class Meta:
         model = UserVehicle
-        fields = ['vehicle_id', 'user_id','user','user_name', 'vehicle_company', 'vehicle_name', 
-                  'vehicle_model', 'vehicle_number', 'created_at']
-        read_only_fields = ['vehicle_id', 'created_at']
+        fields = [
+            'vehicle_id',
+            'user',          # FK field (write internally)
+            'user_name',     # readable for Flutter
+            'vehicle_company',
+            'vehicle_name',
+            'vehicle_model',
+            'vehicle_number',
+            'created_at'
+        ]
+        read_only_fields = ['vehicle_id', 'created_at', 'user']
+
         extra_kwargs = {
             'vehicle_number': {
                 'error_messages': {
@@ -90,43 +115,127 @@ class UserVehicleSerializer(serializers.ModelSerializer):
             }
         }
 
+    def create(self, validated_data):
+        request = self.context.get('request')
+        validated_data['user_id'] = request.user['id']
+        return super().create(validated_data)
+
 
 class ChargingVanSerializer(serializers.ModelSerializer):
     """Serializer for Charging Van model"""
     class Meta:
         model = ChargingVan
-        fields = ['van_id', 'van_number', 'operator_id', 'battery_capacity', 'created_at']
+        fields = ['van_id', 'van_number', 'operator_id','vanoperator_latitude', 'vanoperator_longitude',   'battery_capacity', 'created_at']
         read_only_fields = ['van_id', 'created_at']
 
 
+# class RequestSerializer(serializers.ModelSerializer):
+#     """Serializer for Request model"""
+#     user_name = serializers.CharField(source='user.user_name', read_only=True)
+#     operator_name = serializers.CharField(source='operator.operator_name', read_only=True)
+#     vehicle_number = serializers.CharField(source='vehicle.vehicle_number', read_only=True)
+#     class Meta:
+#         model = Request
+#         # fields = ['request_id', 'user_id', 'operator_id', 'vehicle_id', 
+#         #           'user_location', 'request_status', 'request_time']
+#         fields = [
+#     'request_id',
+#     'user',
+#     'operator',
+#     'vehicle',        
+#     'user_name',
+#     'operator_name',
+#     'vehicle_number',
+#     'user_latitude',
+#     'user_longitude',
+#     'amount',
+#     'request_status',
+#     'created_at',
+# ]
+#         read_only_fields = ['request_id', 'created_at']
+
 class RequestSerializer(serializers.ModelSerializer):
     """Serializer for Request model"""
+    
+    ### CHANGE: explicitly defining charfields to pull names from related models
     user_name = serializers.CharField(source='user.user_name', read_only=True)
     operator_name = serializers.CharField(source='operator.operator_name', read_only=True)
     vehicle_number = serializers.CharField(source='vehicle.vehicle_number', read_only=True)
+    vehicle_name = serializers.CharField(source='vehicle.vehicle_name', read_only=True)
+
     class Meta:
         model = Request
-        # fields = ['request_id', 'user_id', 'operator_id', 'vehicle_id', 
-        #           'user_location', 'request_status', 'request_time']
+        ### CHANGE: Replaced IDs with names in the fields list
         fields = [
-    'user',
-    'operator',
-    'vehicle',        
-    'user_name',
-    'operator_name',
-    'vehicle_number',
-    'user_latitude',
-    'user_longitude',
-    'request_status'
-]
-        read_only_fields = ['request_id', 'request_time']
+            'request_id',
+            'user_name',      # Replaces user_id
+            'operator_name',  # Replaces operator_id
+            'vehicle_name',   # Extra detail
+            'vehicle_number', # Replaces vehicle_id
+            'user_latitude',
+            'user_longitude',
+            'amount',
+            'request_status',
+            'created_at',
+        ]
+        read_only_fields = ['request_id', 'created_at']
 
+
+
+# class BookingSerializer(serializers.ModelSerializer):
+
+#     request_id = serializers.IntegerField(write_only=True)
+#     operator_name = serializers.CharField(
+#         source='operator.operator_name',
+#         read_only=True
+#     )
+
+#     class Meta:
+#         model = Booking
+#         fields = [
+#             'booking_id',
+#             'request_id',
+#             'operator',
+#             'operator_name',
+#             'booking_status',
+#             'created_at'
+#         ]
+#         read_only_fields = ['booking_id', 'created_at']
+#     def create(self, validated_data):
+#         request_id = validated_data.pop('request_id')
+
+#         request_obj = Request.objects.get(request_id=request_id)
+
+#         booking = Booking.objects.create(
+#             request=request_obj,
+#             **validated_data
+#         )
+#         return booking    
 
 class BookingSerializer(serializers.ModelSerializer):
 
-    request_id = serializers.IntegerField(write_only=True)
+    request_id = serializers.IntegerField(
+        source='request.request_id',
+        read_only=True
+    )
+
     operator_name = serializers.CharField(
         source='operator.operator_name',
+        read_only=True
+    )
+
+    user_name = serializers.CharField(
+        source='request.user.user_name',
+        read_only=True
+    )
+
+    vehicle_name = serializers.CharField(
+        source='request.vehicle.vehicle_name',
+        read_only=True
+    )
+
+    vehicle_number = serializers.CharField(
+        source='request.vehicle.vehicle_number',
         read_only=True
     )
 
@@ -137,20 +246,13 @@ class BookingSerializer(serializers.ModelSerializer):
             'request_id',
             'operator',
             'operator_name',
+            'user_name',
+            'vehicle_name',
+            'vehicle_number',
             'booking_status',
             'created_at'
         ]
         read_only_fields = ['booking_id', 'created_at']
-    def create(self, validated_data):
-        request_id = validated_data.pop('request_id')
-
-        request_obj = Request.objects.get(request_id=request_id)
-
-        booking = Booking.objects.create(
-            request=request_obj,
-            **validated_data
-        )
-        return booking    
 
 # class PaymentSerializer(serializers.ModelSerializer):
 #     """Serializer for Payment model"""
@@ -195,15 +297,17 @@ class PaymentSerializer(serializers.ModelSerializer):
         read_only_fields = ['payment_id', 'created_at']
 
 
-
-
 class FeedbackSerializer(serializers.ModelSerializer):
     """Serializer for Feedback model"""
+    
+    ### CHANGE: Fetching names
     user_name = serializers.CharField(source='user.user_name', read_only=True)
     operator_name = serializers.CharField(source='operator.operator_name', read_only=True)
+    
     class Meta:
         model = Feedback
-        fields = ['feedback_id','user_name','operator_name', 'rating', 'comments', 'created_at']
+        ### CHANGE: Removed ID fields from output, keeping names
+        fields = ['feedback_id', 'user_name', 'operator_name', 'rating', 'comments', 'created_at']
         read_only_fields = ['feedback_id', 'created_at']
 
 

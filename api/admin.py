@@ -150,7 +150,7 @@ class VanOperatorAdmin(AjaxDeleteAdmin):
         "delete_action",
     )
     
-    list_filter = ("is_verified", "operator_status")    
+   
     #  Password is Display as ****
     formfield_overrides = {
         models.CharField: {"widget": forms.TextInput(attrs={"size": "50"})},
@@ -167,7 +167,7 @@ class VanOperatorAdmin(AjaxDeleteAdmin):
             })
 
         return formfield
-
+    list_editable = ("is_verified",)
     list_filter = ("is_verified", "operator_status")
     readonly_fields = ("role","operator_status")
    
@@ -216,11 +216,12 @@ class ChargingVanAdmin(AjaxDeleteAdmin):
 class UserVehicleAdmin(AjaxDeleteAdmin):
     list_display = (
         "vehicle_id",
+        "user",
         "vehicle_company",
         "vehicle_name", 
         "vehicle_model",
         "vehicle_number",
-        "user",
+       
         "created_at",
         "delete_action",
         
@@ -247,15 +248,15 @@ class RequestAdmin(AjaxDeleteAdmin):
 class BookingAdmin(AjaxDeleteAdmin):
     list_display = (
         "booking_id",
-        "booking_status",
         "operator",
         "request_id",
+        "booking_status",
         "created_at",
         "delete_action",
     )
     list_filter = ("booking_status",)
     search_fields = ("operator__operator_name",)
-
+    
 class PaymentAdmin(AjaxDeleteAdmin):
     list_display = (
         'payment_id',
