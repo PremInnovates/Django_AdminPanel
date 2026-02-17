@@ -200,9 +200,6 @@ class ChargingVanAdmin(AjaxDeleteAdmin):
     list_editable = ("operator",)
     exclude = ('vanoperator_latitude', 'vanoperator_longitude')
     list_filter = ("operator",)
-    formfield_overrides = {
-        models.ForeignKey: {"widget": forms.Select},
-    }
 
     search_fields = (
         "van_number",
