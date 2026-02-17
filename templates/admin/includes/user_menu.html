@@ -2,6 +2,29 @@
 
 <ul class="dropdown-menu dropdown-menu-right">
     {% if user.is_active %}
+
+        <li>
+            <a class="dropdown-item" href="{% url 'admin:password_change' %}">
+                <i class="fas fa-key"></i> {% trans "Change password" %}
+            </a>
+        </li>
+
+        <li>
+            <a class="dropdown-item" href="{% url 'admin:logout' %}">
+                <i class="fas fa-sign-out-alt"></i> {% trans "Log out" %}
+            </a>
+        </li>
+
+    {% endif %}
+</ul>
+
+
+
+
+<!-- {% load i18n %}
+
+<ul class="dropdown-menu dropdown-menu-right">
+    {% if user.is_active %}
         <li class="dropdown-item-text">
             <strong>{{ user.get_username }}</strong>
         </li>
@@ -20,4 +43,4 @@
             </a>
         </li>
     {% endif %}
-</ul>
+</ul> -->
