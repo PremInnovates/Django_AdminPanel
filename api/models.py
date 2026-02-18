@@ -5,6 +5,7 @@ These models map to the existing MySQL tables.
 
 from django.db import models
 from django.contrib.auth.hashers import make_password, check_password
+from django.core.exceptions import ValidationError
 
 
 # =========================
@@ -186,6 +187,22 @@ class ChargingVan(models.Model):
     def __str__(self):
         return self.van_number
 
+    # 🔥 ADD THIS
+    def clean(self):
+        if self.operator:   # only check if operator selected
+
+            existing_van = ChargingVan.objects.filter(
+                operator=self.operator
+            ).exclude(pk=self.pk).first()
+
+            if existing_van:
+                raise ValidationError({
+                "operator": (
+                    f"Operator '{self.operator.operator_name}' is already "
+                    f"assigned to van '{existing_van.van_number}'. "
+                    "Each operator can be assigned to only one van."
+                )
+            })
 
 # =========================
 # REQUEST MODEL

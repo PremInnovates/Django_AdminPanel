@@ -1,3 +1,4 @@
+from ast import operator
 from django.contrib import admin
 from django.urls import path, reverse
 from django.utils.html import format_html
@@ -106,9 +107,21 @@ class ChargingVanForm(forms.ModelForm):
         model = ChargingVan
         fields = "__all__"
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields["operator"].widget = forms.Select()
+    def clean_operator(self):
+        operator = self.cleaned_data.get("operator")
+
+        if operator:
+            existing_van = ChargingVan.objects.filter(
+                operator=operator
+            ).exclude(pk=self.instance.pk).first()
+
+            if existing_van:
+                raise forms.ValidationError(
+                f"Operator '{operator.operator_name}' is already assigned to van '{existing_van.van_number}'. Each operator can be assigned to only one van."
+            )   
+
+
+        return operator
 
 
 
@@ -186,8 +199,10 @@ class VanOperatorAdmin(AjaxDeleteAdmin):
 
 
 # CHARGING VAN ADMIN
-
 class ChargingVanAdmin(AjaxDeleteAdmin):
+
+    form = ChargingVanForm   # 🔥 ADD THIS
+
     list_display = (
         "van_id",
         "van_number",
@@ -196,20 +211,42 @@ class ChargingVanAdmin(AjaxDeleteAdmin):
         "created_at",
         "delete_action",
     )
-    
+
     list_editable = ("operator",)
     exclude = ('vanoperator_latitude', 'vanoperator_longitude')
     list_filter = ("operator",)
-    formfield_overrides = {
-        models.ForeignKey: {"widget": forms.Select},
-    }
 
     search_fields = (
         "van_number",
         "operator__operator_name",
     )
+
     def has_add_permission(self, request):
         return True
+
+# class ChargingVanAdmin(AjaxDeleteAdmin):
+#     list_display = (
+#         "van_id",
+#         "van_number",
+#         "operator",
+#         "battery_capacity",
+#         "created_at",
+#         "delete_action",
+#     )
+    
+#     list_editable = ("operator",)
+#     exclude = ('vanoperator_latitude', 'vanoperator_longitude')
+#     list_filter = ("operator",)
+#     formfield_overrides = {
+#         models.ForeignKey: {"widget": forms.Select},
+#     }
+
+#     search_fields = (
+#         "van_number",
+#         "operator__operator_name",
+#     )
+#     def has_add_permission(self, request):
+#         return True
 
 
 # OTHER ADMINS
