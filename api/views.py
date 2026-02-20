@@ -27,7 +27,7 @@ def admin_dashboard(request):
             model.objects.filter(id=delete_id).delete()
             return redirect('admin_dashboard')
 
-    # Debug print - Console mein dikhega
+    # Debug print - 
     print("=" * 50)
     print("DEBUG: Fetching data from database...")
     
