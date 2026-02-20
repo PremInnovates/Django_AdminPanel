@@ -201,7 +201,7 @@ class VanOperatorAdmin(AjaxDeleteAdmin):
 # CHARGING VAN ADMIN
 class ChargingVanAdmin(AjaxDeleteAdmin):
 
-    form = ChargingVanForm   # 🔥 ADD THIS
+    form = ChargingVanForm   
 
     list_display = (
         "van_id",

@@ -8,9 +8,9 @@ from django.contrib.auth.hashers import make_password, check_password
 from django.core.exceptions import ValidationError
 
 
-# =========================
+
 # USER MODEL
-# =========================
+
 class User(models.Model):
     user_id = models.AutoField(primary_key=True)
     user_name = models.CharField(max_length=30)
@@ -37,9 +37,9 @@ class User(models.Model):
         return self.user_name
 
 
-# =========================
+
 # VAN OPERATOR MODEL
-# =========================
+
 
 class VanOperator(models.Model):
 
@@ -85,9 +85,9 @@ class VanOperator(models.Model):
     def __str__(self):
         return self.operator_name
 
-# =========================
+# 
 # USER VEHICLE MODEL
-# # =========================
+# 
 # class UserVehicle(models.Model):
 #     vehicle_id = models.AutoField(primary_key=True)
 #     user_id = models.IntegerField()
@@ -128,9 +128,8 @@ class UserVehicle(models.Model):
 
 
 
-# =========================
+
 # CHARGING VAN MODEL
-# =========================
 
 # class ChargingVan(models.Model):
 #     van_id = models.AutoField(primary_key=True)
@@ -187,7 +186,7 @@ class ChargingVan(models.Model):
     def __str__(self):
         return self.van_number
 
-    # 🔥 ADD THIS
+  
     def clean(self):
         if self.operator:   # only check if operator selected
 
@@ -204,9 +203,9 @@ class ChargingVan(models.Model):
                 )
             })
 
-# =========================
+
 # REQUEST MODEL
-# =========================
+
 class Request(models.Model):
 
     REQUEST_STATUS = (
@@ -252,9 +251,8 @@ class Request(models.Model):
         return f"Request #{self.request_id}"
 
 
-# =========================
+
 # BOOKING MODEL
-# =========================
 class Booking(models.Model):
 
     BOOKING_STATUS = (
@@ -289,9 +287,8 @@ class Booking(models.Model):
     
 
 
-# =========================
+
 # PAYMENT MODEL
-# =========================
 # class Payment(models.Model):
     
 #     P_METHOD_STATUS = (
@@ -377,9 +374,8 @@ class Payment(models.Model):
 
 
 
-# =========================
+
 # FEEDBACK MODEL
-# =========================
 class Feedback(models.Model):
     feedback_id = models.AutoField(primary_key=True)
  
